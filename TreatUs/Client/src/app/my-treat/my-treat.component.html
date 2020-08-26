@@ -1,0 +1,129 @@
+<html>
+
+<head>
+  <link href="https://use.fontawesome.com/releases/v5.0.7/css/all.css" rel="stylesheet">
+</head>
+
+<body>
+  <div class="main-content">
+    <div class="container-fluid">
+      <div class="row">
+        <div class="col-md-9">
+          <div class="card">
+            <div class="card-header card-header-danger">
+              <h4 class="card-title">My Treat</h4>
+            </div>
+            <div class="card-body">
+
+              <div *ngIf="alertMessage!=null" class="alert alert-danger">
+                {{ alertMessage }}
+              </div>
+
+              <div class="card">
+                <!--User Details-->
+                <form>
+                  <div class="row">
+                    <div class="col">
+                      <input [hidden]=true type="text" class="form-control" placeholder="UserName" #myInput1
+                        id="inputUserName">
+                    </div>
+                    <div class="col">
+                      <input [hidden]=true type="text" class="form-control" placeholder="Email" #myInput2
+                        id="inputEmail">
+                    </div>
+                  </div>
+                </form>
+              </div>
+              <div class="card">
+                <h4> Today's Treat on {{getTreatTypeText()}} by {{getProvidersString()}} .</h4>
+              </div>
+              <div class="card">
+                <div class="container">
+                  <div class="row custom-wrapper">
+                    <div class="col-md-12">
+
+                      <!-- Form starts -->
+                      <!-- <form [formGroup]="registrationForm" (ngSubmit)="onSubmit(ngValue)"> -->
+                      <form [formGroup]="registrationForm">
+                        <div class="group-gap">
+                          <div class="d-block my-3">
+
+                            <div class="mb-3">
+                              <label>Select a restaurant:</label>
+                              <select class="custom-select" (change)="changeRestaurant($event)"
+                                formControlName="restaurants">
+                                <option value="all">All Restaurants</option>
+                                <option *ngFor="let restaurants of distinctNames" [ngValue]="">{{ restaurants }}
+                                </option>
+                              </select>
+
+                              <!-- error block -->
+                              <!-- <div class="invalid-feedback" *ngIf="isSubmitted && treatsType.errors?.required">
+                                          <sup>*</sup>Please enter Restaurants
+                                        </div> -->
+                            </div>
+                          </div>
+                        </div>
+                        <!-- Submit Button -->
+                        <!-- <button type="submit" class="btn btn-danger btn-lg btn-block">Submit</button>-->
+                      </form>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <div class="card">
+                <table mat-table [dataSource]="dataSource" class="mat-elevation-z8">
+
+                  <ng-container matColumnDef="Select">
+                    <th mat-header-cell *matHeaderCellDef>
+                      <!-- <mat-checkbox  (change)="$event ? masterToggle() : null"
+                                        [checked]="selection.hasValue() && isAllSelected()"
+                                        [indeterminate]="selection.hasValue() && !isAllSelected()">
+                                      </mat-checkbox>   -->
+                    </th>
+                    <td mat-cell *matCellDef="let row">
+                      <mat-radio-button  [class.selected]="selection.isSelected(row)" (click)="test(row,selection)"
+                        (click)="$event.stopPropagation()" (change)="$event ? selection.toggle(row): null"
+                        [checked]="selection.isSelected(row)">
+                      </mat-radio-button >
+                    </td>
+                  </ng-container>
+
+                  <ng-container matColumnDef="RestaurantName">
+                    <th mat-header-cell *matHeaderCellDef> RestaurantName </th>
+                    <td mat-cell *matCellDef="let element" (click)="test(element)"> {{element.restaurantName}} </td>
+                  </ng-container>
+
+                  <ng-container matColumnDef="Menu">
+                    <th mat-header-cell *matHeaderCellDef> Menu </th>
+                    <td mat-cell *matCellDef="let element" (click)="test(element)"> {{element.menuName}} </td>
+                  </ng-container>
+
+                  <ng-container matColumnDef="Specification">
+                    <th mat-header-cell *matHeaderCellDef> Specification </th>
+                    <td mat-cell *matCellDef="let element" (click)="test(element)"> {{element.specification}} </td>
+                  </ng-container>
+
+                  <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+                  <tr mat-row *matRowDef="let row; columns: displayedColumns;" (click)="selection.toggle(row)">
+                  </tr>
+                </table>
+
+              </div>
+              <div class="card">
+                <h3>{{ message }}</h3>
+              </div>
+              <button mat-raised-button type="button" class="btn btn-success pull-right"
+                (click)="sendClick(myInput1.value,myInput2.value)">Send</button>
+
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</body>
+
+</html>
+
+<!-- [disabled]="Specification.invalid" -->

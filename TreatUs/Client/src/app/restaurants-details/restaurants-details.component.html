@@ -1,0 +1,268 @@
+<html>
+
+<head>
+  <link href="https://use.fontawesome.com/releases/v5.0.7/css/all.css" rel="stylesheet">
+</head>
+
+<body>
+
+  <div class="main-content">
+    <div class="container-fluid">
+      <div class="card">
+        <div class="card-header card-header-danger">
+          <h4 class="card-title">{{ titleText }}</h4>
+        </div>
+        <div class="card-body">
+
+          <div *ngIf="showAlert" class="alert alert-success alert-dismissible">
+            <button (click)="dismissAlert()" type="button" class="close" data-dismiss="alert">&times;</button>
+            <strong>Success!</strong> {{ restaurantToRemove.restaurantName }} {{ alertMessage }}
+          </div>
+
+          <form class="form" [formGroup]="restaurantForm" id="formStart">
+            <div class="row">
+              <div class="col">
+                <mat-form-field class="example-full-width">
+                  <mat-label>Restautant Name</mat-label>
+                  <input matInput [(ngModel)]="restaurantName" #input1 formControlName="restaurantName"
+                    id="restaurantName">
+                  <div
+                    *ngIf="restaurantNameValidator.invalid && (restaurantNameValidator.dirty || restaurantNameValidator.touched)">
+                    <div *ngIf="restaurantNameValidator.errors.required" class="text-danger">
+                      Name is required.
+                    </div>
+                  </div>
+                </mat-form-field>
+              </div>
+              <div class="col">
+                <mat-form-field class="example-full-width">
+                  <mat-label>Address</mat-label>
+                  <input matInput [(ngModel)]="address" #input2 formControlName="address" id="address">
+                </mat-form-field>
+              </div>
+            </div>
+
+            <div class="row">
+              <div class="col">
+                <mat-form-field class="example-full-width">
+                  <mat-label>Phone</mat-label>
+                  <input matInput [(ngModel)]="phone" #input3 formControlName="phone" id="phone">
+                  <div *ngIf="phoneValidator.invalid && (phoneValidator.dirty || phoneValidator.touched)">
+                    <div *ngIf="phoneValidator.errors.required" class="text-danger">
+                      Phone number is required.
+                    </div>
+                    <div *ngIf="phoneValidator.errors.pattern" class="text-danger">
+                      Invalid phone number.
+                    </div>
+                  </div>
+                </mat-form-field>
+              </div>
+              <div class="col p-2">
+                <mat-label>Restaurant image</mat-label>
+                <input type="file" style="width: 190px;" (change)="onUploadChange($event)"
+                  accept=".png, .jpg, .jpeg, .pdf" />
+                <img class="rounded-circle" width="50" height="50" src="{{ base64textString[0] }}" alt="" id="img">
+              </div>
+            </div>
+          </form>
+        </div>
+
+        <mat-divider></mat-divider>
+
+        <div class="card-body">
+          <h4 class="text-center  text-uppercase">Menu</h4>
+          <div id="table" class="table-editable">
+            <form [formGroup]="restaurantForm" (submit)="processForm()">
+              <table class="table table-bordered table-responsive-md table-striped text-center">
+                <tr>
+                  <th class="text-center">Item Name</th>
+                  <th class="text-center">Category</th>
+                  <th class="text-center">Sub-Category</th>
+                  <th class="text-center">Specification</th>
+                  <th class="text-center">Price</th>
+                  <th class="text-center">Action</th>
+                </tr>
+
+                <tr>
+                  <td>
+                    <input type="text" placeholder="Enter menu name" #myInput1 class="form-control example-full-width"
+                      [(ngModel)]="menuName" formControlName="menuName" id="menuName">
+                  </td>
+                  <td>
+                    <form [formGroup]="categoryForm">
+                      <span>
+                        <ng-multiselect-dropdown formControlName="categories" [placeholder]="'Select Category'"
+                          [settings]="settings" [data]="data" [(ngModel)]="selectedCategories">
+                        </ng-multiselect-dropdown>
+                        <br />
+                      </span>
+                    </form>
+                    <!-- <input type="text" placeholder="Enter category" #myInput4
+                      class="form-control example-full-width" [(ngModel)]="category"
+                      formControlName="category" id="Category">
+                  </td> -->
+                  <td>
+                    <form [formGroup]="subCategoryForm">
+                      <select class="custom-select" (change)="changeSubCategory($event)" formControlName="subCategory">
+                        <option value="">Choose Category</option>
+                        <option *ngFor="let subCategories of subCategory" [ngValue]="subCategories">{{subCategories}}
+                        </option>
+                      </select>
+                      <div class="invalid-feedback" *ngIf="isSubmitted && subCategory.errors?.required">
+                        <sup>*</sup>Please enter category
+                      </div>
+                    </form>
+                    <!-- <input type="text" placeholder="Enter sub category" #myInput5
+                      class="form-control example-full-width" [(ngModel)]="category"
+                      formControlName="subCategory" id="subCategory"> -->
+                  </td>
+                  <td>
+                    <input type="text" placeholder="Enter specification" #myInput2
+                      class="form-control example-full-width" [(ngModel)]="specification"
+                      formControlName="specification" id="Specification">
+                  </td>
+                  <td>
+                    <input type="text" placeholder="Enter price " #myInput3 class="form-control example-full-width"
+                      [(ngModel)]="price" formControlName="price" id="price">
+                  </td>
+                  <td>
+                    <span class="table-add">
+                      <a class="text-success" title="Upload Image" data-toggle="modal" data-target="#imageModalCenter">
+                        <i class="fas fa-image fa-2x"></i>
+                      </a>
+                    </span>
+                    <span class="table-editable">
+                      <a style="margin-left: 10px;" title="Add item" class="text-primary"
+                        (click)="addMenuItem(myInput1.value,myInput2.value,myInput3.value)">
+                        <i class="fas fa-plus-square fa-2x"></i>
+                      </a>
+                    </span>
+                  </td>
+                </tr>
+
+                <tr *ngFor="let menuItem of menuList; let id = index">
+                  <td>{{ menuItem.menuName }}</td>
+                  <td>{{ menuItem.category}}</td>
+                  <td>{{menuItem.subcategory}}</td>
+                  <td>{{ menuItem.specification }}</td>
+                  <td>{{ menuItem.price }}</td>
+                  <td>
+                    <span class="table-remove">
+                      <a class="text-danger" (click)="removeListItem(id)">
+                        <i class="fas fa-minus-square fa-2x"></i>
+                      </a>
+                    </span>
+
+                  </td>
+                </tr>
+              </table>
+            </form>
+          </div>
+        </div>
+
+        <div class="row">
+          <div class="col-12">
+            <button [disabled]="!restaurantForm.valid" class="btn btn-success"
+              style="float: right; margin-right: 10px; margin-bottom: 10px;"
+              (click)="addClick(input1.value,input2.value,input3.value)"><span *ngIf="showSaveSpinner"
+                class="spinner-border spinner-border-sm"></span>
+              Done</button>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="container-fluid">
+      <div class="card">
+        <div class="card-header card-header-danger">
+          <h4 class="card-title">All Restaurants</h4>
+        </div>
+        <div class="card-body">
+          <div class="table table-bordered table-responsive-md table-striped text-center">
+            <app-loading-spinner *ngIf="showSpinner"></app-loading-spinner>
+            <table *ngIf="!showSpinner" class="table" style="vertical-align: middle;padding: 0ch;">
+              <tr>
+                <th></th>
+                <th>Restaurant Name</th>
+                <th>Phone</th>
+                <th>Address</th>
+              </tr>
+
+              <tr *ngFor="let restaurant of restaurantsList;let id = index">
+                <td style="padding: 0;vertical-align: middle;width: 100px;"><img class="rounded-circle" width="50"
+                    height="50" src={{restaurant.imageBase64}} alt="" id="img"> </td>
+                <td style="padding: 0;vertical-align: middle;">{{ restaurant.restaurantName }}</td>
+                <td style="padding: 0;vertical-align: middle;">{{ restaurant.telephoneNo }}</td>
+                <td style="padding: 0;vertical-align: middle;">{{ restaurant.address }}</td>
+
+                <td class="btn-group">
+                  <span class="table-add">
+                    <a class="text-warning" (click)="editRestaurant(id)" target="formStart">
+                      <i class="fas fa-edit fa-lg"></i>
+                    </a>
+                  </span>
+                </td>
+                <td class="btn-group">
+                  <span class="table-remove">
+                    <a class="text-danger" data-toggle="modal" data-target="#exampleModalCenter"
+                      (click)="setDeleteRestaurant(restaurant)">
+                      <i class="fas fa-trash fa-lg"></i>
+                    </a>
+                  </span>
+                </td>
+              </tr>
+            </table>
+          </div>
+        </div>
+      </div>
+    </div>
+
+  </div>
+  <div class="modal fade" id="imageModalCenter" tabindex="-1" role="dialog" aria-labelledby="imageModalCenterTitle"
+    aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered" role="document">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="imageModalLongTitle">Upload</h5>
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </div>
+        <div class="modal-body">
+          <input type="file" class="form-control-file" style="width: 250px;" (change)="onMenuUploadChange($event)"
+            accept=".png, .jpg, .jpeg, .pdf" />
+          <img style="height: auto; width: 100px;" src="{{ menuBase64textString[0] }}" alt="" id="imgMenu"
+            class="img-thumbnail">
+
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-success" (click)="deleteRestaurant()" data-dismiss="modal">Save</button>
+          <button type="button" class="btn btn-danger" data-dismiss="modal">Close</button>
+
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="modal fade" id="exampleModalCenter" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle"
+    aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered" role="document">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="exampleModalLongTitle">Delete!</h5>
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </div>
+        <div *ngIf="restaurantToRemove!=null" class="modal-body">
+          Are you sure want to delete {{ restaurantToRemove.restaurantName }} ?
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-warning" data-dismiss="modal">Close</button>
+          <button type="button" class="btn btn-danger" (click)="deleteRestaurant()" data-dismiss="modal">Delete</button>
+        </div>
+      </div>
+    </div>
+  </div>
+</body>
+
+</html>

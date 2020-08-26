@@ -1,0 +1,477 @@
+<html>
+
+<head>
+    <link href="https://use.fontawesome.com/releases/v5.0.7/css/all.css" rel="stylesheet">
+</head>
+
+<body>
+    <!-- image -->
+    <div class="main-content">
+        <div class="container-fluid">
+            <div class="row">
+                <div class="col-md-12">
+                    <div class="card">
+                        <div class="card-header ">
+                            <h4 class="card-title"></h4>
+                        </div>
+                        <div class="card-body">
+                            <div class="row p-1">
+                                <div class="container">
+                                    <img src="https://hips.hearstapps.com/hmg-prod.s3.amazonaws.com/images/halloween-cakes-1561042144.jpg"
+                                        alt="" style="width:100%;">
+                                    <div class="text-block">
+                                        <h4>Remaining People For the vote</h4>
+                                        <p> 6</p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!--  provider card -->
+    <div class="main-content">
+        <div class="container-fluid">
+            <div class="row">
+                <div class="col-md-12">
+                    <div class="card">
+                        <div class="card-header ">
+                            <h4 class="card-title"></h4>
+                        </div>
+                        <div class="card-body">
+                            <div class="crd">
+                                <div class="cont">
+                                    <div class="container">
+                                        <div class="row">
+                                            <div class="col-sm">
+                                                <h4><b>Today's Treat On Us !!!</b></h4>
+                                                <p>{{getTreatTypeText()}} Treat</p>
+                                                <p>Remaining Voting Time - 6hrs</p>
+                                            </div>
+                                            <div class="col-sm">
+                                                <div class="flip-card">
+                                                    <div class="flip-card-inner">
+                                                        <div class="flip-card-front">
+                                                            <img src="https://www.w3schools.com/howto/img_avatar2.png"
+                                                                height="200" width="200" class="rounded float-left"
+                                                                alt="">
+                                                        </div>
+                                                        <div class="flip-card-back">
+                                                            <h5>{{getFirstProviderString()}}</h5>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="col-sm">
+                                                <div class="flip-card">
+                                                    <div class="flip-card-inner">
+                                                        <div class="flip-card-front">
+                                                            <img src="https://www.w3schools.com/howto/img_avatar2.png"
+                                                                height="200" width="200" class="rounded float-left"
+                                                                alt="">
+                                                        </div>
+                                                        <div class="flip-card-back">
+                                                            <h4>{{getSecondProviderString()}}</h4>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="col-sm">
+                                                <div class="flip-card">
+                                                    <div class="flip-card-inner">
+                                                        <div class="flip-card-front">
+                                                            <img src="https://www.w3schools.com/howto/img_avatar2.png"
+                                                                height="200" width="200" class="rounded float-left"
+                                                                alt="">
+                                                        </div>
+                                                        <div class="flip-card-back">
+                                                            <h5>{{getThirdProviderString()}}</h5>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Restaurant card -->
+    <div class="main-content">
+        <div class="container-fluid">
+            <div class="row">
+                <div class="col-md-12">
+                    <div class="card">
+                        <div class="card-header-danger ">
+                            <h4 class="card-title"> Restaurants </h4>
+                        </div>
+                        <div class="card-body">
+                            <div class="crd">
+                                <div class="cont">
+                                    <div class="container">
+                                        <div class="row">
+                                            <div class="col-sm">
+                                                <div class="card-body">
+                                                    <div class="row p-1">
+                                                        <div class="con">
+                                                            <div class="col-sm">
+                                                                <div class="card1">
+                                                                    <img src="https://pngimg.com/uploads/kfc/kfc_PNG31.png"
+                                                                        alt="KFC" style="width:100%">
+                                                                </div>
+                                                                <div class="card2">
+                                                                    <div class="container">
+                                                                        <h4><b>KFC</b></h4>
+                                                                        <div class="row p">
+                                                                            <div class="col-sm">
+                                                                                <p>Nuegegoda</p>
+                                                                            </div>
+                                                                            <div class="col-sm">
+                                                                                <label class="container">
+                                                                                    <input type="checkbox"
+                                                                                        [(ngModel)]="theCheckbox1"
+                                                                                        data-md-icheck
+                                                                                        (change)="toggleVisibility($event)" />
+                                                                                    <span *ngIf="marked"></span><span
+                                                                                        *ngIf="!marked"></span>
+
+                                                                                    <span class="checkmark"></span>
+                                                                                </label>
+
+                                                                                <!--  <div><b>{{theCheckbox1}}</b></div> -->
+                                                                            </div>
+                                                                        </div>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="col-sm">
+                                                <div class="col-sm">
+                                                    <div class="flip-card">
+                                                        <div class="card-body">
+                                                            <div class="row p-1">
+                                                                <div class="con">
+                                                                    <div class="col-sm">
+                                                                        <div class="card-body">
+                                                                            <div class="row p-1">
+                                                                                <div class="con">
+                                                                                    <div class="col-sm">
+                                                                                        <div class="card1">
+                                                                                            <img src="data:image/png;base64,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"
+                                                                                                alt="BurgerKing"
+                                                                                                style="width:100%">
+                                                                                        </div>
+                                                                                        <div class="card2">
+                                                                                            <div class="container">
+                                                                                                <h4><b>BurgerKing</b>
+                                                                                                </h4>
+                                                                                                <div class="row p">
+                                                                                                    <div class="col-sm">
+                                                                                                        <p>Nuegegoda</p>
+                                                                                                    </div>
+                                                                                                    <div class="col-sm">
+                                                                                                        <label
+                                                                                                            class="container">
+                                                                                                            <input
+                                                                                                                type="checkbox"
+                                                                                                                [(ngModel)]="theCheckbox2"
+                                                                                                                data-md-icheck
+                                                                                                                (change)="toggleVisibility($event)" />
+                                                                                                            <span
+                                                                                                                *ngIf="marked"></span><span
+                                                                                                                *ngIf="!marked"></span>
+
+                                                                                                            <span
+                                                                                                                class="checkmark"></span>
+                                                                                                        </label>
+
+                                                                                                        <!--  <div><b>{{theCheckbox2}}</b></div> -->
+                                                                                                    </div>
+                                                                                                </div>
+                                                                                            </div>
+                                                                                        </div>
+                                                                                    </div>
+
+                                                                                </div>
+                                                                            </div>
+                                                                        </div>
+                                                                    </div>
+
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="col-sm"></div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!--Menu Card -->
+    <div class="main-content">
+        <div class="container-fluid">
+            <div class="row">
+                <div class="col-md-12">
+                    <div class="card">
+                        <div class="card-header-danger ">
+                            <h4 class="card-title"> Menu </h4>
+                        </div>
+                        <div class="card-body">
+                            <div class="crd">
+                              <ng-container *ngIf="show1">
+                                <div class="cont">
+                                    <div class="container">
+                                        <div class="row">
+                                            <div class="col-sm">
+
+                                                <div class="card-body">
+                                                    <div class="row ">
+                                                        <div class="con">
+                                                            <div class="col-sm">
+
+                                                                <div class="card10">
+                                                                    <div class="row">
+                                                                        <div class="col-sm">
+                                                                            <div class="card4">
+                                                                                <!-- picture with details display -->
+                                                                                <div class="row">
+                                                                                    <div class="col-4">
+
+                                                                                        <img src="https://b.zmtcdn.com/data/pictures/5/18763405/f3f3e68b7a16fecdcbb518598ce48d0f.jpg"
+                                                                                            height="200" width="200"
+                                                                                            alt="">
+                                                                                    </div>
+                                                                                    <div class="col-8">
+                                                                                        <div class="card6">
+                                                                                            <div class="container">
+                                                                                                <div class="row">
+                                                                                                    <label
+                                                                                                        for="restaurant"
+                                                                                                        class="col-sm-5 col-form-label">Restaurant:</label>
+                                                                                                    <div
+                                                                                                        class="col-sm-4">
+                                                                                                        <input
+                                                                                                            type="text"
+                                                                                                            readonly
+                                                                                                            class="form-control-plaintext"
+                                                                                                            id="staticRestaurant"
+                                                                                                            value="{{getRestautantString()}}">
+                                                                                                    </div>
+                                                                                                </div>
+
+                                                                                                <div class="row">
+                                                                                                    <label
+                                                                                                        for="MenuItem"
+                                                                                                        class="col-sm-5 col-form-label">MenuItem:</label>
+                                                                                                    <div
+                                                                                                        class="col-sm-4">
+                                                                                                        <input
+                                                                                                            type="text"
+                                                                                                            readonly
+                                                                                                            class="form-control-plaintext"
+                                                                                                            id="staticMenuItem"
+                                                                                                            value="{{getMenuItemsString()}}">
+                                                                                                    </div>
+                                                                                                </div>
+
+                                                                                                <div class="row">
+                                                                                                    <label
+                                                                                                        for="Specification"
+                                                                                                        class="col-sm-5 col-form-label">Specification:</label>
+                                                                                                    <div
+                                                                                                        class="col-sm-4">
+                                                                                                        <input
+                                                                                                            type="text"
+                                                                                                            readonly
+                                                                                                            class="form-control-plaintext"
+                                                                                                            id="staticSpecification"
+                                                                                                            value="{{getSpecificationString()}}">
+                                                                                                    </div>
+                                                                                                </div>
+
+                                                                                                <div class="row">
+                                                                                                    <label
+                                                                                                        for="ratings"
+                                                                                                        class="col-sm-5 col-form-label">Ratings:</label>
+                                                                                                    <div
+                                                                                                        class="col-sm-4">
+                                                                                                        <input
+                                                                                                            type="text"
+                                                                                                            readonly
+                                                                                                            class="form-control-plaintext"
+                                                                                                            id="staticRatings"
+                                                                                                            value="{{getMenuRatings()}}">
+                                                                                                    </div>
+                                                                                                </div>
+
+                                                                                                <div class="row">
+                                                                                                    <div
+                                                                                                        class="col-md-8 offset-md-8">
+                                                                                                        <label
+                                                                                                            class="container">
+                                                                                                            <input
+                                                                                                                type="checkbox"
+                                                                                                                [(ngModel)]="theCheckbox4"
+                                                                                                                data-md-icheck
+                                                                                                                (change)="toggleVisibility($event)" />
+                                                                                                            <span
+                                                                                                                *ngIf="marked"></span><span
+                                                                                                                *ngIf="!marked"></span>
+
+                                                                                                            <span
+                                                                                                                class="checkmark"></span>
+                                                                                                        </label>
+                                                                                                    </div>
+                                                                                                </div>
+                                                                                            </div>
+                                                                                        </div>
+                                                                                    </div>
+                                                                                </div>
+                                                                            </div>
+                                                                        </div>
+                                                                      <!-- Like & Comment Buttons-->
+                                                                        <link rel="stylesheet"
+                                                                            href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+                                                                        <div class="col-sm">
+                                                                            <div class="card5">
+                                                                                <div class="row">
+                                                                                    <div class="col-md-6">
+                                                                                        <div class="button">
+                                                                                            <button2> <i
+                                                                                                    class="fas fa-thumbs-up"
+                                                                                                    [disabled]="clicked"
+                                                                                                    (click)="likeClick()"
+                                                                                                    aria-hidden="true"></i>
+                                                                                            </button2>
+                                                                                        </div>
+                                                                                    </div>
+                                                                                    <div class="col-md-6">
+                                                                                        <button3> <i
+                                                                                                class="fas fa-comment-alt"
+                                                                                                (click)="toggle()"
+                                                                                                aria-hidden="true"></i>
+                                                                                        </button3>
+
+                                                                                    </div>
+                                                                                </div>
+                                                                            </div>
+                                                                        </div>
+                                                                      <!--  Text Areas -->
+                                                                      <!-- Toggle Text Areas -->
+                                                                     <ng-container *ngIf="show">
+                                                                        <div class="col-sm">
+                                                                            <div class="card9">
+                                                                                <div class="card11">
+                                                                                    <div class="row">
+                                                                                        <div class="col-sm">
+                                                                                            <img src="https://i.ya-webdesign.com/images/avatar-png-1.png"
+                                                                                                alt="Avatar">
+                                                                                        </div>
+                                                                                        <div class="col-sm">
+                                                                                            <p>Nice
+                                                                                            </p>
+                                                                                        </div>
+                                                                                        <div class="col-sm">
+                                                                                            <span
+                                                                                                class="time-right">11:00</span>
+                                                                                        </div>
+                                                                                    </div>
+                                                                                </div>
+                                                                               <!--Display Added Comment-->
+                                                                                <div class="card7">
+                                                                                    <div class="row">
+                                                                                        <div class="col-sm">
+                                                                                            <img src="https://i.ya-webdesign.com/images/avatar-png-1.png"
+                                                                                                alt="Avatar">
+                                                                                        </div>
+                                                                                        <div class="col-sm">
+                                                                                            <p>{{myInput.value}}
+                                                                                            </p>
+                                                                                        </div>
+                                                                                        <div class="col-sm">
+                                                                                            <span
+                                                                                                class="time-right">11:00</span>
+                                                                                        </div>
+                                                                                    </div>
+                                                                                </div>
+
+                                                                                <!--Add Comment-->
+                                                                                <div class="card7">
+                                                                                    <div
+                                                                                        class="form-group shadow-textarea">
+                                                                                        <div class="row">
+                                                                                            <div
+                                                                                                class="col-sm-3">
+                                                                                                <img src="https://i.ya-webdesign.com/images/avatar-png-1.png"
+                                                                                                    alt="Avatar">
+                                                                                            </div>
+                                                                                            <div
+                                                                                                class="col-sm-6">
+
+                                                                                                <textarea
+                                                                                                    class="form-control z-depth-1"
+                                                                                                    id="Textarea1"
+                                                                                                    rows="1"
+                                                                                                    placeholder="Write something here..."
+                                                                                                    #myInput></textarea>
+
+                                                                                            </div>
+                                                                                            <div
+                                                                                                class="col-sm-3">
+                                                                                                <button1><i
+                                                                                                        class="fas fa-paper-plane"
+                                                                                                        (click)="sendTextClick(myInput.value)"
+                                                                                                        aria-hidden="true"></i>
+                                                                                                </button1>
+                                                                                            </div>
+                                                                                        </div>
+                                                                                    </div>
+                                                                                </div>
+
+                                                                            </div>
+                                                                        </div>
+                                                                   </ng-container>
+
+                                                                    </div>
+                                                                </div>
+
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </ng-container> 
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+</body>
+
+</html>

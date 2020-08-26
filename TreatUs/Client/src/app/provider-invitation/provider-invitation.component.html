@@ -1,0 +1,29 @@
+<div class="main-content">
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-md-9">
+                <div class="card">
+                    <div class="card-header card-header-danger">
+                        <h4 class="card-title">Treat Invitation</h4>
+
+                    </div>
+                    <div class="card-body">
+                        <div class="row p-4">
+                            <h2>You're invited to next treat on {{getDate()}} with {{getProvidersString()}} for your
+                                {{getTreatTypeText()}} .</h2>
+                            <div class="text-center">
+                                <img src="https://www.tasteofhome.com/wp-content/uploads/2018/01/Slow-Cooked-Chunky-Chili_EXPS_HSCBZ_13823_16_C07_29_1b-1-696x696.jpg"
+                                    height="200" width="200" class="rounded float-left" alt="">
+                            </div>
+                        </div>
+                        <button mat-raised-button type="button" class="btn btn-success pull-right"
+                            (click)="acceptInvitationClick() ">Accept</button>
+                        <button mat-raised-button type="button" class="btn btn-danger pull-right"
+                            (click)="rejectInvitationClick()">Reject</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- {{treat.TreatDate | date: "longDate"}} {{getTreatTypeText()}} {{getProvidersString()}}  -->

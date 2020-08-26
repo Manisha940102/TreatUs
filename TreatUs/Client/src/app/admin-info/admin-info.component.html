@@ -1,0 +1,260 @@
+<html>
+
+<head>
+  <link href="https://use.fontawesome.com/releases/v5.0.7/css/all.css" rel="stylesheet">
+</head>
+
+<body>
+  <div class="main-content">
+    <div class="container-fluid">
+      <div class="row">
+        <div class="col-md-9">
+          <div class="card">
+            <div class="card-header card-header-danger">
+              <h4 class="card-title">Admin Basic Info</h4>
+            </div>
+            <div class="card-body">
+              <div class="card">
+
+                <div class="row p-4">
+                  <form [formGroup]="registrationForm" class="form-inline">
+                    <div class="form-group">
+                      <div class="input-group col-md-12">
+                        <label for="date" class="col-sm-4 col-form-label">Treat Date :</label>
+                        <input class="form-control" formControlName="datePicker" placeholder="yyyy-mm-dd" name="dp"
+                          [(ngModel)]="model" ngbDatepicker #d="ngbDatepicker" [minDate]="minDate">
+                        <div class="input-group-append">
+                          <button class="btn btn-outline-secondary calendar" (click)="d.toggle()" type="button"><i
+                              class="far fa-calendar-alt"></i></button>
+                        </div>
+
+                      </div>
+                      <div class="row" style="color: red;" *ngIf="datePicker.errors?.required && datePicker.touched">
+                        <sup>*</sup>Invalid date
+                      </div>
+                    </div>
+                  </form>
+                  <div class="input-group col-md-5">
+                    <div class="row">
+                      <label class="col-md-4 p-4">Treat Time :</label>
+                      <ngb-timepicker [(ngModel)]="time"></ngb-timepicker>
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+              <div class="card">
+                <div class="container">
+                  <div class="row custom-wrapper">
+                    <div class="col-md-6">
+                      <form [formGroup]="registrationForm">
+                        <div class="group-gap">
+                          <div class="d-block my-4">
+                            <div class="mb-3">
+                              <select class="custom-select" (change)="changeTtype($event)" formControlName="treatsType">
+                                <option value="">Choose Treat Type</option>
+                                <option *ngFor="let tType of TreatsType" [ngValue]="tType">{{tType}}</option>
+                              </select>
+                              <div class="invalid-feedback" *ngIf="treatsType?.dirty && treatsType.errors?.required">
+                                <sup>*</sup>Please enter treatType
+                              </div>
+                            </div>
+                            <!-- <p>{{ inputCustomType }}{{ tType }}</p> -->
+                            <input *ngIf="showCustomTypeBox==true" type="text" class="form-control"
+                              placeholder="Custom Type" #myInput1 [(ngModel)]="inputCustomType"
+                              formControlName="customType" id="customType"/>
+
+                            <div *ngIf="showCustomTypeBox==true && customType.invalid && (customType.dirty || customType.touched)">
+                              <div *ngIf="customType.errors.required" class="text-danger">
+                                Treat type is required.
+                              </div>
+                            </div>
+                          </div>
+                        </div>
+                      </form>
+                    </div>
+
+
+                    <div class="col-md-6">
+                      <form [formGroup]="categoryForm">
+                        <div class="group-gap">
+                          <div class="d-block my-4">
+                            <div class="mb-3">
+                              <select class="custom-select" (change)="changeCategory($event)"
+                                formControlName="category">
+                                <option value="">Choose Category</option>
+                                <option *ngFor="let category of Categories" [ngValue]="category">{{category}}</option>
+                              </select>
+                              <div class="invalid-feedback" *ngIf="isSubmitted && Categories.errors?.required">
+                                <sup>*</sup>Please enter category
+                              </div>
+                            </div>
+                          </div>
+                        </div>
+                      </form>
+                    </div>
+                  </div>
+
+                  <div class="col-md-12">
+                    <form [formGroup]="providersForm">
+                      <span>
+                        <label for="selectProviders" class="col-sm-6"></label>
+                        <ng-multiselect-dropdown formControlName="providers" [placeholder]="'Select Provider'"
+                          [settings]="settings" [data]="users" [(ngModel)]="selectedProviders">
+                        </ng-multiselect-dropdown>
+                        <br />
+                      </span>
+                    </form>
+                  </div>
+
+                  <div class="button">
+                    <button [disabled]="!registrationForm.valid || !categoryForm.valid || !providersForm.valid"
+                      mat-raised-button type="button" class="btn btn-success"
+                      (click)="nextClick() ">Next</button>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</body>
+
+</html>
+
+
+
+
+
+
+
+
+
+
+<!-- <html>
+
+<head>
+  <link href="https://use.fontawesome.com/releases/v5.0.7/css/all.css" rel="stylesheet">
+</head>
+
+<body>
+  <div class="main-content">
+    <div class="container-fluid">
+      <div class="row">
+        <div class="col-md-9">
+          <div class="card">
+            <div class="card-header card-header-danger">
+              <h4 class="card-title">Admin Basic Info</h4>
+            </div>
+            <div class="card-body">
+              <div class="card">
+                <div class="row p-4">
+                  <form [formGroup]="registrationForm" class="form-inline">
+                    <div class="form-group">
+                      <div class="input-group col-md-12">
+                        <label for="date" class="col-sm-4 col-form-label">Treat Date :</label>
+                        <input class="form-control" formControlName="datePicker" placeholder="yyyy-mm-dd" name="dp"
+                          [(ngModel)]="model" ngbDatepicker #d="ngbDatepicker" [minDate]="minDate">
+                        <div class="input-group-append">
+                          <button class="btn btn-outline-secondary calendar" (click)="d.toggle()" type="button"><i
+                              class="far fa-calendar-alt"></i></button>
+                        </div>
+                      </div>
+                      <div class="row" style="color: red;" *ngIf="datePicker.errors?.required && datePicker.touched">
+                        <sup>*</sup>Invalid date
+                      </div>
+                    </div>
+                  </form>
+                  <div class="input-group col-md-5">
+                    <div class="row">
+                      <label class="col-md-4 p-4">Treat Time :</label>
+                      <ngb-timepicker [(ngModel)]="time"></ngb-timepicker>
+                    </div>
+                  </div>
+                </div>
+                <div class="container">
+                <div class="row custom-wrapper">
+                  <div class="col-md-12">
+                    <form [formGroup]="registrationForm">
+                      <div class="group-gap">
+                        <div class="d-block my-3">
+                          <div class="mb-3">
+                            <select class="custom-select" (change)="changeTtype($event)" formControlName="treatType">
+                              <option value="">Choose Treat Type</option>
+                              <option *ngFor="let tType of TreatsType" [ngValue]="tType">{{tType}}</option>
+                            </select>
+                            <div class="invalid-feedback" *ngIf="treatsType.dirty && treatsType.errors?.required">
+                              <sup>*</sup>Please enter treatType
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                    </form>
+                  </div>
+                </div>
+                </div>
+                <div class="col-md-12">
+                  <form [formGroup]="providersForm" >
+                    <span>
+                      <label for="selectProviders" class="col-sm-6"></label>
+                      <ng-multiselect-dropdown formControlName="providers" [placeholder]="'Select Provider'"
+                        [settings]="settings" [data]="users" [(ngModel)]="selectedProviders">
+                      </ng-multiselect-dropdown>
+                      <br />
+                    </span>
+                  </form>
+                </div>
+                
+                <div class="row">
+                  <div class="col-md-6 p-2">
+                    <div *ngIf="loadContent">
+                      <form [formGroup]="form" (ngSubmit)="save()" (reset)="resetForm()">
+                        <ng-multiselect-dropdown #multiSelect [value]="" [placeholder]="'Filter Restaurant'"
+                          [settings]="settings" [data]="data" [formControl]="f.name" [disabled]="false"
+                          (onFilterChange)="onFilterChange($event)" (onDropDownClose)="onDropDownClose($event)"
+                          (onSelect)="onItemSelect($event)" (onDeSelect)="onDeSelect($event)"
+                          (onSelectAll)="onSelectAll($event)" (onDeSelectAll)="onDeSelectAll($event)">
+                        </ng-multiselect-dropdown>
+                      </form>
+                    </div>
+                  </div>
+                  <div class="col-md-6">
+                    <form [formGroup]="registrationForm" >
+                      <div class="group-gap">
+                        <div class="d-block my-0">
+                          <div class="mb-2">
+                            <mat-form-field appearance="fill">
+                              <mat-label>Meal type</mat-label>     
+                              <select matNativeControl class="form -control browser-default custom-select"
+                        formControlName="inputRole" #myInput5 [(ngModel)]="myInput5.value" (change)="filterCategory(myInput5.value)" id="inputRole">
+                        <option selected value="All">All</option>
+                        <option value="Breakfast">Breakfast</option>
+                        <option value="Lunch">Lunch</option>
+                        <option value="Dinner">Dinner</option>
+                      </select>
+                            </mat-form-field>
+                            <div class="invalid-feedback" *ngIf="isSubmitted && categorys.errors?.required">
+                              <sup>*</sup>Please enter category
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                    </form>
+                  </div>
+                </div>
+
+              </div>
+               <div class="button">
+                <button [disabled]="!registrationForm.valid || !categoryForm.valid || !providersForm.valid"
+                  mat-raised-button type="button" class="btn btn-success" (click)="nextClick() ">Next</button>
+              </div> 
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</body>
+</html> -->

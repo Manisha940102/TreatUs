@@ -1,0 +1,14 @@
+table{
+    width: 100%;
+
+}
+.card {
+    border: 10;
+    margin-bottom: 30px;
+    margin-top: 30px;
+    border-radius: 5px;
+    color: #333333;
+    background: #fff;
+    width: 100%;
+    box-shadow: 5px;
+}

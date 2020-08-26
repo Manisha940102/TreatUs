@@ -1,0 +1,187 @@
+<html>
+
+<head>
+  <link href="https://use.fontawesome.com/releases/v5.0.7/css/all.css" rel="stylesheet" />
+</head>
+
+<body>
+  <div class="main-content">
+    <div class="container-fluid">
+      <div class="card">
+        <div class="card-header card-header-danger">
+          <h4 class="card-title">{{ message }}</h4>
+        </div>
+        <div class="card-body">
+
+          <div *ngIf="showAlert" class="alert alert-success alert-dismissible">
+            <button (click)="dismissAlert()" type="button"  class="close" data-dismiss="alert">&times;</button>
+            <strong>Success!</strong> {{ userToRemove.name }} {{ alertMessage }}
+          </div>
+          
+          <form [formGroup]="userForm">
+            <div class="row">
+              <div class="col">
+                <input type="text" class="form-control" placeholder="First name" #myInput1 [(ngModel)]="inputName"
+                  formControlName="inputName" id="inputName" required />
+                <div *ngIf="name.invalid && (name.dirty || name.touched)">
+                  <div *ngIf="name.errors.required" class="text-danger">
+                    Name is required.
+                  </div>
+                  <div *ngIf="name.errors.minlength && !name.errors.pattern" class="text-danger">
+                    Name must be at least 4 characters long.
+                  </div>
+                  <div *ngIf="name.errors.pattern" class="text-danger">
+                    Name must only contain letters.
+                  </div>
+                </div>
+              </div>
+
+              <div class="col">
+                <input type="text" class="form-control" placeholder="Email" #myInput2 [(ngModel)]="inputEmail"
+                  formControlName="inputEmail" id="inputEmail" />
+                <div *ngIf="email.invalid && (email.dirty || email.touched)">
+                  <div *ngIf="email.errors.required" class="text-danger">
+                    Email is required.
+                  </div>
+                  <div *ngIf="email.errors.pattern" class="text-danger">
+                    Invali email address.
+                  </div>
+                </div>
+              </div>
+
+              <div class="col">
+                <input type="password" class="form-control" placeholder="Password" #myInput3 [(ngModel)]="inputPassword"
+                  formControlName="inputPassword" id="inputPassword" />
+                <div *ngIf="password.invalid && (password.dirty || password.touched)">
+                  <div *ngIf="password.errors.required" class="text-danger">
+                    Password is required.
+                  </div>
+                  <div *ngIf="password.errors.minlength" class="text-danger">
+                    Password must be longer than 5 letters.
+                  </div>
+                </div>
+              </div>
+
+              <div class="col">
+                <input type="text" class="form-control" placeholder="PhoneNumber" #myInput4
+                  [(ngModel)]="inputPhoneNumber" formControlName="inputPhoneNumber" id="inputPhoneNumber" />
+                <div *ngIf="phone.invalid && (phone.dirty || phone.touched)">
+                  <div *ngIf="phone.errors.pattern || phone.errors.minlength " class="text-danger">
+                    Invalid phone number.
+                  </div>
+                </div>
+              </div>
+
+              <div class="col">
+                <mat-form-field appearance="standard">
+                  <mat-label>Select user type</mat-label>
+                  <select matNativeControl class="form -control browser-default custom-select"
+                    formControlName="inputRole" #myInput5 [(ngModel)]="inputRole" id="inputRole">
+                    <option selected value="user">User</option>
+                    <option value="admin">Admin</option>
+                  </select>
+                </mat-form-field>
+              </div>
+
+            </div>
+            <div class="row" style="float: right;">
+              <div class="col">
+
+                <button type="submit" [disabled]="!userForm.valid || name == null || email == null || inputRole==null"
+                  class="btn" (click)="
+                      addClick(
+                        myInput1.value,
+                        myInput2.value,
+                        myInput3.value,
+                        myInput4.value,
+                        myInput5.value
+                      )
+                    " >
+                  <span *ngIf="showSaveSpinner" class="spinner-border spinner-border-sm"></span>
+                  Save
+                </button>
+
+                <button class="btn" (click)="resetClick()">Reset</button>
+
+              </div>
+            </div>
+          </form>
+        </div>
+      </div>
+    </div>
+    <div class="container-fluid">
+      <div class="row">
+        <div class="col">
+          <div class="card">
+            <div class="card-header card-header-danger">
+              <h4 class="card-title">All Users</h4>
+            </div>
+            <div class="card-body">
+              <div class="form-group">
+                <input type="text" class="form-control" placeholder="Search Here" [(ngModel)]="term" />
+              </div>
+              <app-loading-spinner *ngIf="showSpinner"></app-loading-spinner>
+              <table *ngIf="!showSpinner" class="table">
+                <thead>
+                  <tr>
+                    <th scope="col">Name</th>
+                    <th scope="col">Email</th>
+                    <th scope="col">PhoneNumber</th>
+                    <th scope="col">Role</th>
+                    <th scope="col">Active</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr *ngFor="let item of users | filter: term">
+                    <td>{{ item.name }}</td>
+                    <td>{{ item.email }}</td>
+                    <td>{{ item.phoneNumber }}</td>
+                    <td>{{ item.role }}</td>
+                    <td>
+                      <mat-slide-toggle class="mat-slide-toggle" type="checkbox" [(ngModel)]="item.isActive"
+                        (change)="updateStatus(item, $event)">
+                      </mat-slide-toggle>
+                    </td>
+
+                    <td>
+                      <span><i class="fas fa-edit" matTooltip="Edit" (click)="editClick(item)"></i></span>
+                    </td>
+                    <td>
+                      <span><i matTooltip="Delete" (click)="setDeleteUser(item)" class="fas fa-user-times"
+                          data-toggle="modal" data-target="#exampleModalCenter"></i></span>
+                    </td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="modal fade" id="exampleModalCenter" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle"
+    aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered" role="document">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="exampleModalLongTitle">Delete!</h5>
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </div>
+        <div *ngIf="userToRemove!=null" class="modal-body">
+          Are you sure want to delete {{ userToRemove.name }} ?
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-warning" data-dismiss="modal">Close</button>
+          <button type="button" class="btn btn-danger" (click)="deleteClick()" data-dismiss="modal">Delete</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+
+
+</body>
+
+</html>

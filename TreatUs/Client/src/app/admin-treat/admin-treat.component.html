@@ -1,0 +1,157 @@
+<html>
+
+<head>
+</head>
+
+<body>
+    <div class="main-content">
+        <div class="Container-fluid">
+            <div class="row">
+                <div class="col-md-10">
+                    <div class="card">
+                        <div class="card-header card-header-danger">
+                            <h4 class="card-title">Admin Treat Summary</h4>
+                        </div>
+                        <div class="card-body">
+
+
+                            <div *ngIf="showAlert" class="alert alert-success alert-dismissible">
+                                <button (click)="dismissAlert()" type="button" class="close"
+                                    data-dismiss="alert">&times;</button>
+                                <strong>Success!</strong> {{ treatToRemove.providerName }}s treat removed!
+                            </div>
+                            <div *ngIf="showSendAlert" class="alert alert-success alert-dismissible">
+                                <button (click)="dismissAlert()" type="button" class="close"
+                                    data-dismiss="alert">&times;</button>
+                                <strong>Success!</strong> treat successfully send!
+                            </div>
+
+                            <app-loading-spinner *ngIf="showSpinner"></app-loading-spinner>
+                            <table *ngIf="!showSpinner" mat-table [dataSource]="dataSource" class="mat-elevation-z8">
+
+                                <ng-container matColumnDef="DateAndVoteTime">
+                                    <th mat-header-cell *matHeaderCellDef> Date/VoteTime </th>
+                                    <td mat-cell *matCellDef="let element"> {{element.dateTime}}</td>
+                                </ng-container>
+
+                                <ng-container matColumnDef="TreatType">
+                                    <th mat-header-cell *matHeaderCellDef> TreatType </th>
+                                    <td mat-cell *matCellDef="let element"> {{element.type}} </td>
+                                </ng-container>
+
+                                <ng-container matColumnDef="Category">
+                                    <th mat-header-cell *matHeaderCellDef> Category </th>
+                                    <td mat-cell *matCellDef="let element">{{element.category}} </td>
+                                </ng-container>
+
+                                <ng-container matColumnDef="ProviderNames">
+                                    <th mat-header-cell *matHeaderCellDef> ProviderNames </th>
+                                    <td mat-cell *matCellDef="let element"> {{element.providerName}} </td>
+                                </ng-container>
+
+                                <ng-container matColumnDef="Status">
+                                    <th mat-header-cell *matHeaderCellDef> Status </th>
+                                    <td mat-cell *matCellDef="let element"> {{element.status}} </td>
+                                </ng-container>
+
+                                <ng-container matColumnDef="Actions">
+                                    <th mat-header-cell *matHeaderCellDef> Actions </th> 
+                                <!-- </mat-header-cell> -->
+                                    <td mat-cell *matCellDef="let element">
+                                        <button *ngIf="!getPendingProviders(element.treatId)" mat-icon-button
+                                            [ngStyle]="{'color':'darkorange'}" matTooltip="Remind Providers"
+                                            (click)="remindProviders(element)">
+                                            <mat-icon>refresh</mat-icon>
+                                        </button>
+                                        <button
+                                            *ngIf="getPendingProviders(element.treatId) && checkEmailStatus(element.treatId)"
+                                            mat-icon-button [ngStyle]="{'color':'green'}" matTooltip="Invite Users"
+                                            (click)="sendClick(element.treatId)">
+                                            <mat-icon>send</mat-icon>
+                                        </button>
+                                        <button
+                                            *ngIf="!getPendingUsers(element.treatId) && !checkEmailStatus(element.treatId)"
+                                            mat-icon-button [ngStyle]="{'color':'green'}" matTooltip="Remind Users"
+                                            (click)="sendClick(element.treatId)">
+                                            <mat-icon>refresh</mat-icon>
+                                        </button>
+                                        <button *ngIf="getPendingUsers(element.treatId)" mat-icon-button
+                                            [ngStyle]="{'color':'green'}" matTooltip="User pick complete">
+                                            <mat-icon>check_circle_outline</mat-icon>
+                                        </button>
+
+                                        <button mat-icon-button [ngStyle]="{'color':'slategray'}"
+                                            matTooltip="Go to the order" (click)="summaryClick(element.treatId)">
+                                            <mat-icon>local_grocery_store</mat-icon>
+                                        </button>
+
+                                        <button mat-icon-button [ngStyle]="{'color':'firebrick'}" matTooltip="Delete"
+                                            data-toggle="modal" data-target="#exampleModalCenter" (click)="setDeleteTreat(element)"
+                                            (click)="sendEmailsDeleteTreat(element.treatId)">
+                                            <mat-icon>delete_outline</mat-icon>
+                                        </button>
+                                    </td>
+                                    <!-- </mat-cell> -->
+                                </ng-container>
+
+
+
+                                <!-- <ng-container matColumnDef="Actions">
+                                    <th mat-header-cell *matHeaderCellDef> Actions </th>
+                                    <td mat-cell *matCellDef="let element"> <button mat-raised-button [disabled]="disableSend(element.treatId)==true||providerStatus(element.status)"
+                                            type="button" class="btn btn-success custom" data-toggle="model" data-target="#exampleModelCenter" 
+                                            (click)="sendClick(element.treatId)"><span
+                                            *ngIf="showOrderSpinner(element.treatId)"
+                                            class="spinner-border spinner-border-sm"></span>Send</button> </td>
+                                </ng-container>
+
+                                <ng-container matColumnDef="Summary">
+                                    <th mat-header-cell *matHeaderCellDef> Summary </th>
+                                    <td mat-cell *matCellDef="let element"> <button mat-raised-button 
+                                            type="button" class="btn btn-success custom" data-toggle="modal"
+                                            data-target="#exampleModalCenter"
+                                            (click)="summaryClick(element.treatId)">Order</button> </td>
+                                </ng-container>
+
+                                <ng-container matColumnDef="Remove">
+                                    <th mat-header-cell *matHeaderCellDef> Remove </th>
+                                    <td mat-cell *matCellDef="let element"> <button mat-raised-button type="button"
+                                            class="btn btn-danger custom" data-toggle="modal"
+                                            data-target="#exampleModalCenter" (click)="setDeleteTreat(element)"><span
+                                                *ngIf="showRemoveSpinner(element.treatId)"
+                                                class="spinner-border spinner-border-sm"></span> Remove</button> </td>
+                                </ng-container> -->
+
+                                <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+                                <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="modal fade" id="exampleModalCenter" tabindex="-1" role="dialog"
+        aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="exampleModalLongTitle">Delete!</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div *ngIf="treatToRemove!=null" class="modal-body">
+                    Are you sure want to delete {{ treatToRemove.providerName }}'s Treat ?
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-warning" data-dismiss="modal">Close</button>
+                    <button type="button" class="btn btn-danger" (click)="removeClick()"
+                        data-dismiss="modal">Delete</button>
+                </div>
+            </div>
+        </div>
+    </div>
+</body>
+
+</html>

@@ -1,0 +1,13 @@
+.example-trigger {
+      display: inline-block;
+}
+
+.btn {
+      background-color: #4CAF50;
+      border: none;
+      color: white;
+      text-align: center;
+      text-decoration: none;
+      font-size: 10px;
+      float: right;
+}

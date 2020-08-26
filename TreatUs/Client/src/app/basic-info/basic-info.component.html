@@ -1,0 +1,103 @@
+<div class="main-content">
+  <div class="container-fluid">
+      <div class="row">
+          <div class="col-md-9">
+              <div class="card">
+                  <div class="card-header card-header-danger">
+                      <h4 class="card-title">Basic Infomation About Treat</h4>
+                  </div>
+                  <div class="card-body">
+                    <div class="text-left">
+                      <img src="https://cdn.pixabay.com/photo/2012/04/02/13/59/info-24567_960_720.png"
+                          height="200" width="400" class="rounded float-left" alt="">
+                  </div>
+                    <form>
+                     <div class="row p-3">
+                      <label for="treatType" class="col-sm-4 col-form-label">Treat Type</label>
+                      <div class="col-sm-5">
+                          <input type="text" readonly class="form-control-plaintext" id="staticTreatType"
+                              value={{getTreatTypeText()}}>
+                      </div>
+                      <label for="providerList" class="col-sm-4 col-form-label">Provider List</label>
+                      <div class="col-sm-5">
+                          <input type="text" readonly class="form-control-plaintext" id="staticProviderList"
+                              value={{getProvidersString()}}>
+                      </div>
+                      <label for="date" class="col-sm-4 col-form-label">Date & EndTime</label>
+                            <div class="col-sm-5">
+                                <input type="text" readonly class="form-control-plaintext" id="staticProviderList"
+                                    value={{getDate()}}>
+                            </div> 
+                           
+                     </div>
+                     <!-- <img src=https://i.pinimg.com/originals/73/5a/27/735a274eed2079de04dd04fb41816032.jpg
+                            height="50" width="90"  class="rounded float-right" alt=""> -->
+                     <div class="button">
+                      <button mat-raised-button type="button" class="btn btn-success pull-right"
+                          (click)="nextClick() ">Next</button>
+                    </div>
+                    </form>                      
+                  </div>
+              </div>
+          </div>
+      </div>
+  </div>
+</div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<!-- <div class="main-content">
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-md-9">
+                <div class="card">
+                    <div class="card-header card-header-danger">
+                        <h4 class="card-title">Treat Invitation</h4>
+                    </div>
+                    <div class="card-body">
+                        <img src="https://lh3.googleusercontent.com/proxy/ECZl9j11ZZprQKwGePNxcoK10cMSMnb8-rdnspwes4ZqezRXdMpUshQi0wIDNiCCNqeGOPfoLkfAZzDu0PbEiELZcdqGG8Q"
+                            height="193.3" width="383p" top="-50px" class="rounded float-right" alt="">
+                        <div class="row p-4">
+                            <form>
+                            <label for="treatType" class="col-sm-4 col-form-label">Treat Type</label>
+                            <div class="col-sm-6">
+                                <input type="text" readonly class="form-control-plaintext" id="staticTreatType"
+                                    value={{getTreatTypeText()}}>
+                            </div>
+                            <label for="providerList" class="col-sm-4 col-form-label">Provider List</label>
+                            <div class="col-sm-6">
+                                <input type="text" readonly class="form-control-plaintext" id="staticProviderList"
+                                    value={{getProvidersString()}}>
+                            </div>
+                            <label for="date" class="col-sm-4 col-form-label">Date & EndTime</label>
+                            <div class="col-sm-6">
+                                <input type="text" readonly class="form-control-plaintext" id="staticProviderList"
+                                    value={{getDate()}}>
+                            </div>
+                            </form>                            
+                        </div>
+                        <div class="button">
+                            <button mat-raised-button type="button" class="btn btn-success pull-right"
+                                (click)="nextClick() ">Next</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div> -->
